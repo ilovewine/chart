@@ -1,3 +1,4 @@
+import type { StockQuote } from '@/types/Stockquote';
 import {
   SciChartSurface,
   NumericAxis,
@@ -7,18 +8,26 @@ import {
   SweepAnimation,
   SciChartJsNavyTheme,
   NumberRange,
+  DateTimeNumericAxis,
 } from 'scichart';
 
-async function initSciChart() {
+async function initSciChart(data: StockQuote[]) {
   const { sciChartSurface, wasmContext } = await SciChartSurface.create('scichart-root', {
     theme: new SciChartJsNavyTheme(),
     title: 'Stockquotes',
     titleStyle: { fontSize: 22 },
   });
 
+  const minDate = new Date();
+  minDate.setHours(minDate.getHours() - 3);
+  const maxDate = new Date();
+
   // Create an XAxis and YAxis with growBy padding
+  const xAxisRange = new NumberRange(minDate.getTime() / 1000, maxDate.getTime() / 1000);
   const growBy = new NumberRange(0.1, 0.1);
-  sciChartSurface.xAxes.add(new NumericAxis(wasmContext, { axisTitle: 'Time', growBy }));
+  sciChartSurface.xAxes.add(
+    new DateTimeNumericAxis(wasmContext, { axisTitle: 'Time', visibleRange: xAxisRange }),
+  );
   sciChartSurface.yAxes.add(new NumericAxis(wasmContext, { axisTitle: 'Growth', growBy }));
 
   // Create a line series with some initial data

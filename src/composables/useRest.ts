@@ -1,11 +1,12 @@
-import { ref } from 'vue';
+import type { StockQuote } from '@/types/Stockquote';
+import { ref, type Ref } from 'vue';
 
 const URL = import.meta.env.VITE_API_URL;
 const LOGIN = import.meta.env.VITE_API_LOGIN;
 const PASSWORD = import.meta.env.VITE_API_PASSWORD;
 
 export default () => {
-  const data = ref(null);
+  const data: Ref<StockQuote[]> = ref([]);
 
   (async () => {
     const headers = new Headers();
