@@ -46,6 +46,7 @@ async function initSciChart(data: StockQuote[]) {
       dataSeries: new XyDataSeries(wasmContext, {
         xValues: dtArray,
         yValues: amountArray,
+        containsNaN: false,
       }),
       animation: new SweepAnimation({ duration: 300, fadeEffect: true }),
     }),
@@ -58,6 +59,7 @@ async function initSciChart(data: StockQuote[]) {
       dataSeries: new XyDataSeries(wasmContext, {
         xValues: dtArray,
         yValues: priceArray,
+        containsNaN: false,
       }),
       pointMarker: new EllipsePointMarker(wasmContext, {
         width: 5,
