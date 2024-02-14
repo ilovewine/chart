@@ -11,6 +11,8 @@ export default (data: StockQuote[]) => {
     amountArray.push(stockQuote.amount);
   });
 
+  dtArray.map((v) => new Date(v).getTime() / 1000);
+
   return {
     dtArray,
     priceArray,

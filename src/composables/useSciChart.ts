@@ -12,6 +12,7 @@ import {
   ZoomExtentsModifier,
   MouseWheelZoomModifier,
   FastColumnRenderableSeries,
+  EAutoRange,
 } from 'scichart';
 import { appTheme } from 'scichart-example-dependencies';
 import useChartData from './useChartData';
@@ -25,17 +26,18 @@ async function initSciChart(data: StockQuote[]) {
   });
 
   // set XAxis
-  const minDate = new Date();
-  minDate.setHours(minDate.getHours() - 3);
-  const maxDate = new Date();
+  const minDate = dtArray[0];
+  const maxDate = dtArray[dtArray.length - 1];
 
   // Create an XAxis and YAxis with growBy padding
-  const xAxisRange = new NumberRange(minDate.getTime() / 1000, maxDate.getTime() / 1000);
+  const xAxisRange = new NumberRange(minDate, maxDate);
   const growBy = new NumberRange(0.1, 0.1);
   sciChartSurface.xAxes.add(
     new DateTimeNumericAxis(wasmContext, { axisTitle: 'Time', visibleRange: xAxisRange }),
   );
-  sciChartSurface.yAxes.add(new NumericAxis(wasmContext, { axisTitle: 'Growth', growBy }));
+  sciChartSurface.yAxes.add(
+    new NumericAxis(wasmContext, { axisTitle: 'Growth', growBy, autoRange: EAutoRange.Once }),
+  );
 
   sciChartSurface.renderableSeries.add(
     new FastColumnRenderableSeries(wasmContext, {
@@ -58,8 +60,8 @@ async function initSciChart(data: StockQuote[]) {
         yValues: priceArray,
       }),
       pointMarker: new EllipsePointMarker(wasmContext, {
-        width: 11,
-        height: 11,
+        width: 5,
+        height: 5,
         fill: appTheme.VividRed,
       }),
       animation: new SweepAnimation({ duration: 300, fadeEffect: true }),
