@@ -13,10 +13,12 @@ export default () => {
     const credentials = btoa(`${LOGIN}:${PASSWORD}`);
     headers.append('Authorization', `Basic ${credentials}`);
 
-    data.value = await fetch(URL, {
-      method: 'GET',
-      headers,
-    }).then((data) => data.json());
+    data.value = (
+      await fetch(URL, {
+        method: 'GET',
+        headers,
+      }).then((data) => data.json())
+    ).sort((a: StockQuote, b: StockQuote) => a.dt - b.dt);
   })();
 
   return {

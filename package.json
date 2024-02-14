@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "scichart": "^3.3.567",
+    "scichart-example-dependencies": "^0.1.7",
     "vue": "^3.4.15"
   },
   "devDependencies": {

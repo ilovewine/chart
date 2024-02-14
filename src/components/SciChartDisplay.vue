@@ -20,7 +20,7 @@ const chartInitializationPromise = ref();
 const isMounted = ref(false);
 
 watch([data, isMounted], () => {
-  if (isMounted.value) {
+  if (isMounted.value && data.value.length) {
     chartInitializationPromise.value = initSciChart(data.value);
   }
 });
