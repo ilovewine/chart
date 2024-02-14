@@ -1,16 +1,19 @@
-<script setup async lang="ts">
-import useRest from '@/composables/useRest';
-import { watch } from 'vue';
-
-const { data } = useRest();
-
-watch(data, () => {
-  console.log(data.value);
-});
+<script setup lang="ts">
+import SciChartDisplay from '@/components/SciChartDisplay.vue';
 </script>
 
 <template>
-  <main></main>
+  <main class="container">
+    <SciChartDisplay class="chart" />
+  </main>
 </template>
 
-<style scoped></style>
+<style scoped>
+.container {
+  height: 100vh;
+}
+.chart {
+  height: 100%;
+  width: 100%;
+}
+</style>
